@@ -33,7 +33,7 @@ body{
 }
 
 /* aaaahhhhhh camelCase!!! */
-.editButton{
+.button{
     display: flex;
     align-items: center;
     justify-content: center;
@@ -50,4 +50,41 @@ body{
     background-color: #433D8B;
     font-size: 40px;
     cursor:pointer;
+}
+
+.taskContainer{
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: 2px solid #17153B;
+    border-radius: 10px;
+
+    background-color: #433D8B;
+    color: #e6e6e6;
+    width: 400px;
+    height: 35px;
+    margin-top: 25px;
+}
+
+ul{
+    list-style-type: none;
+    margin-top: 0px;
+}
+
+.button.taskButton{
+    /* background-color: wheat; */
+    margin-left: -15px;
+    margin-top: -7px;
+    scale: 1.1;
+}
+
+.taskText{
+    margin-left: 45px;
+    margin-top: -35px;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
