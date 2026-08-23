@@ -99,13 +99,14 @@ ul{
 }
 
 .button.taskButton{
-    position: fixed; /*TODO!! make this not be fixed! right now the button goes to the right if relative, but stays in place when scrollwheel active NEITHER IS GOOD!*/
+    position: relative;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     padding-top: 3px;
     margin-left: -15px;
+    transform: translateX(-330px); /*there has to be a better way to do thiss*/
 
     scale: 1.1;
 }
