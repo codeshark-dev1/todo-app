@@ -9,16 +9,15 @@
 <body>
     <div class="container">
         <div class="top">
-            <button id="test" class="button">-</button>
             <h2>TODO</h2>
-            <button class="button">+</button>
         </div>
         <ul id="tasksParent">
-            <li id="task" class="taskContainer">
-                <button class="button taskButton"></button>
-                <p class="taskText">Gym</p>
+            <li id="task" class="taskContainer" style="order: 0;">
+                <input class="taskText" type="text" placeholder="new task...">
+                <button class="button taskButton" title="Complete task"></button>
             </li>
         </ul>
+        <button class="button addButton" onclick="createNewTask()">+</button>
     </div>
 </body>
 <script src="logic.js"></script>

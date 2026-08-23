@@ -1,27 +1,32 @@
-function onTaskButtonMouseOver(x){
-    x.button.innerHTML = "X";
-    //since you click on the button, the X should already be there
-    //so no need (i think) to permanently place the X
-}
-
-function onTaskButtonMouseLeave(x){
-    if (!x.completed)
-        x.button.innerHTML = "";
-}
-
 function onTaskButtonMouseClick(x){
-    x.completed = !x.completed; //see note at onTaskButtonMouseOver, this function handles that logic
-    
-    let t = x.text;
-    t.style.textDecoration = x.completed ? "line-through" : "none";
+    if (x.description == "")
+        return;
+
+    x.completed = !x.completed;
+
+    const t = x.text;
+    if (x.completed){
+        t.style.textDecoration = "line-through";
+        x.button.innerHTML = "X";
+    }else{
+        t.style.textDecoration = "none";
+        x.button.innerHTML = "";
+    }
 }
 
-function createNewTask(description){
+// function updateTasksOrder(){
+//     for (let i = 0; i < tasks.length; i++) {
+//         const t = tasks[i];
+//         t.text.style.opacity = 100;
+//         t.button.style.opacity = 100;
+//     }
+// }
+
+function createNewTask(description = ""){
     var newTask = new Task(description);
     createTaskElement(newTask);
     
     tasks.push(newTask);
-    
 }
 
 class Task{
@@ -33,25 +38,27 @@ class Task{
     }
 }
 
+function onTaskTextChanged(task){
+    task.description = task.text.value;
+}
+
 function createTaskElement(task){
     const newTask = taskTemplate.cloneNode(true);
 
     let p = newTask.querySelectorAll(".taskText");
-    task.text = p[0];
-    task.text.innerHTML = task.description;
+    const t = p[0];
+    t.value = task.description;
+    t.onchange = function() {onTaskTextChanged(task)};
+    task.text = t;
 
     let b = newTask.querySelectorAll(".taskButton");
-
     const e = b[0];
-    e.onmouseover = function() {onTaskButtonMouseOver(task)};
-    e.onmouseleave = function() {onTaskButtonMouseLeave(task)};
     e.onmousedown = function() {onTaskButtonMouseClick(task)};
 
     task.button = e;
 
-    newTask.style.opacity = 100;
-
     tasksParent.appendChild(newTask);
+    newTask.style.opacity = 100;
 }
 
 const taskTemplate = document.getElementById("task");
@@ -60,6 +67,3 @@ taskTemplate.style.opacity = 0;
 const tasksParent = document.getElementById("tasksParent");
 
 var tasks = [];
-
-createNewTask("gym");
-createNewTask("groceries");
