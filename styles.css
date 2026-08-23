@@ -71,7 +71,7 @@ body{
 
 #taskParent{
     display: flex;
-    flex-direction: column-reverse;
+    flex-direction: column;
 }
 
 .taskContainer{
@@ -95,11 +95,11 @@ body{
 
 ul{
     list-style-type: none;
-    margin-top: -100px;
+    margin-top: -50px;
 }
 
 .button.taskButton{
-    position: fixed;
+    position: fixed; /*TODO!! make this not be fixed! right now the button goes to the right if relative, but stays in place when scrollwheel active NEITHER IS GOOD!*/
     flex-shrink: 0;
     display: flex;
     align-items: center;

@@ -1,68 +1,57 @@
-function onTaskButtonMouseClick(x){
-    if (x.description == "")
+class Task{
+    constructor(elements){
+        this.elements = elements;
+        this.completed = false;
+    }
+}
+
+function onTaskButtonMouseClick(task){
+    const button = task.elements.querySelectorAll(".taskButton")[0];
+    const p = task.elements.querySelectorAll(".taskText")[0];
+    if (p.value == "")
         return;
 
-    x.completed = !x.completed;
+    task.completed = !task.completed;
 
-    const t = x.text;
-    if (x.completed){
-        t.style.textDecoration = "line-through";
-        x.button.innerHTML = "X";
+    if (task.completed){
+        p.style.textDecoration = "line-through";
+        button.innerHTML = "X";
     }else{
-        t.style.textDecoration = "none";
-        x.button.innerHTML = "";
+        p.style.textDecoration = "none";
+        button.innerHTML = "";
     }
 }
 
-// function updateTasksOrder(){
-//     for (let i = 0; i < tasks.length; i++) {
-//         const t = tasks[i];
-//         t.text.style.opacity = 100;
-//         t.button.style.opacity = 100;
-//     }
-// }
+function createTaskElements(){
+    const newTask = document.createElement("li");
+    newTask.classList.add("taskContainer");
 
-function createNewTask(description = ""){
-    var newTask = new Task(description);
-    createTaskElement(newTask);
-    
-    tasks.push(newTask);
+    const inp = document.createElement("input");
+    inp.classList.add("taskText");
+    inp.type = "text";
+    inp.placeholder = "new task...";
+    newTask.appendChild(inp);
+
+    const button = document.createElement("button");
+    button.classList.add("button");
+    button.classList.add("taskButton");
+    button.title = "Complete task";
+    newTask.appendChild(button);
+
+    return newTask;
 }
 
-class Task{
-    constructor(description){
-        this.description = description;
-        this.completed = false;
-        this.button = false;
-        this.text = null;
-    }
+function createNewTask(){
+    const taskElements = createTaskElements();
+    const task = new Task(taskElements);
+    let button = taskElements.querySelectorAll(".taskButton")[0];
+    button.onmousedown = function() {onTaskButtonMouseClick(task)};
+
+    tasks.unshift(task);
+    tasksParent.insertBefore(taskElements, tasksParent.firstChild);
+
+    taskElements.style.opacity = 100;
 }
-
-function onTaskTextChanged(task){
-    task.description = task.text.value;
-}
-
-function createTaskElement(task){
-    const newTask = taskTemplate.cloneNode(true);
-
-    let p = newTask.querySelectorAll(".taskText");
-    const t = p[0];
-    t.value = task.description;
-    t.onchange = function() {onTaskTextChanged(task)};
-    task.text = t;
-
-    let b = newTask.querySelectorAll(".taskButton");
-    const e = b[0];
-    e.onmousedown = function() {onTaskButtonMouseClick(task)};
-
-    task.button = e;
-
-    tasksParent.appendChild(newTask);
-    newTask.style.opacity = 100;
-}
-
-const taskTemplate = document.getElementById("task");
-taskTemplate.style.opacity = 0;
 
 const tasksParent = document.getElementById("tasksParent");
 
