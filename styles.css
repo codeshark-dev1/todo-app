@@ -106,11 +106,18 @@ ul{
     justify-content: center;
     padding-top: 3px;
     margin-left: -15px;
-    transform: translateX(-330px); /*there has to be a better way to do thiss*/
-
+    transform: translateX(-275px); /*there has to be a better way to do this*/
     scale: 1.1;
 }
 
+.button.deleteButton{
+    position: relative;
+    margin-right: -7px;
+    height: 35px;
+    width: 65px;
+    border-radius: 0;
+    font-size: 12px;
+}
 
 input{
     box-sizing: border-box;

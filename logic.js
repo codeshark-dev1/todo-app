@@ -34,6 +34,10 @@ function onTaskTextChanged(task){
     checkTaskCompletion(task);
 }
 
+function deleteTask(task){
+    task.elements.remove();
+}
+
 function createTaskElements(){
     const newTask = document.createElement("li");
     newTask.classList.add("taskContainer");
@@ -50,6 +54,13 @@ function createTaskElements(){
     button.title = "Complete task";
     newTask.appendChild(button);
 
+    const del = document.createElement("button");
+    del.classList.add("button");
+    del.classList.add("deleteButton");
+    del.title = "Delete task";
+    del.innerHTML = "DELETE";
+    newTask.appendChild(del);
+
     return newTask;
 }
 
@@ -59,6 +70,9 @@ function createNewTask(){
 
     let button = taskElements.querySelectorAll(".taskButton")[0];
     button.onmousedown = function() {onTaskButtonMouseClick(task)};
+
+    let del = taskElements.querySelectorAll(".deleteButton")[0];
+    del.onmousedown = function() {deleteTask(task)};
 
     let p = taskElements.querySelectorAll(".taskText")[0];
     p.onchange = function() {onTaskTextChanged(task)};
